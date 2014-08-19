@@ -11,11 +11,9 @@ This tutorial goes through some of the methods,packages available for data wrang
 * **About this tutorial**
 * **Aquiring data**
 * **Observing aquired data**
-  * Some conclutions
-  * Joining data
 * **Data Pre-Processing**
-  * Dealing with redudancies
-  * Dealing with missing values
+   * Dealing with redundancies
+   * Dealing with missing values
 * **Data Visualization**
 * **Machine Learning Algorithms**
   * Unsupervised
