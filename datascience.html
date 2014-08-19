@@ -1698,7 +1698,11 @@ div#notebook {
 <li><strong>Why use Python?</strong></li>
 <li><strong>About this tutorial</strong></li>
 <li><strong>Aquiring Data</strong></li>
-<li><strong>Observing aquired data</strong></li>
+<li><strong>Observing aquired data</strong><ul>
+<li>Some conclutions</li>
+<li>Joining data</li>
+</ul>
+</li>
 <li><strong>Data Pre-Processing</strong><ul>
 <li>Dealing with redundancies</li>
 <li>Dealing with missing values</li>
@@ -1757,6 +1761,1224 @@ div#notebook {
 <p>Data science is a very powerful subject. It is the science of pulling useful insights from data. Data science gained lot of popularity in the recent years. In this tutorial, we will try to explore some of python tools and solve a data problem.</p>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="aquiring-data">Aquiring data</h1>
+<p>For this tutorial we will try to use publicly available data sets. San Francisco department of public health maintains <a href="http://www.sfdph.org/dph/EH/Food/score/default.asp">data sets</a> about restaurants safety scores. Since data is publicly available, aquiring them is easy. If data is available in a website which do not have any API support, we can use web scraping techniques. Since there are lot of tutorials on how to get data, I am skipping that part. For convinience, I added all the requisite data sets in to the <a href="git repo" > repository </a>. I found Jay-Oh-eN&#39;s <a href="https://github.com/Jay-Oh-eN/happy-healthy-hungry">repository</a> quite helpful for reference.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="observing-aquired-data">Observing aquired data</h1>
+<p>In general, there are two kinds of data science problems. First kind could only be solved if we have domain knowlege about the data sets and the second kind are those which can be solved by all data scientists without any prior domain knowledge. 
+Let&#39;s just look at first few rows of data sets, just to know about what kind of data we are dealing with.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[1]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="k">import</span> <span class="n">pandas</span> <span class="n">as</span> <span class="n">pd</span>
+
+<span class="n">SFbusiness_business</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFBusinesses/businesses.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFbusiness_business</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[1]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postal_code</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>phone_number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td>                   TIRAMISU KITCHEN</td>
+      <td>                 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>         NaN</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 12</td>
+      <td>                              KIKKA</td>
+      <td>          250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>         NaN</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 17</td>
+      <td>               GEORGE'S COFFEE SHOP</td>
+      <td>             2200 OAKDALE AVE </td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94124</td>
+      <td> 37.741086</td>
+      <td>-122.401737</td>
+      <td> 14155531470</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 19</td>
+      <td>              NRGIZE LIFESTYLE CAFE</td>
+      <td>  1200 VAN NESS AVE, 3RD FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+      <td> 37.786848</td>
+      <td>-122.421547</td>
+      <td>         NaN</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 24</td>
+      <td> OMNI S.F. HOTEL - 2ND FLOOR PANTRY</td>
+      <td> 500 CALIFORNIA ST, 2ND  FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.792888</td>
+      <td>-122.403135</td>
+      <td>         NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[2]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFbusiness_inspections</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFBusinesses/inspections.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFbusiness_inspections</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[2]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>Score</th>
+      <th>date</th>
+      <th>type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td>  98</td>
+      <td> 20121114</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 10</td>
+      <td>  98</td>
+      <td> 20120403</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 10</td>
+      <td> 100</td>
+      <td> 20110928</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 10</td>
+      <td>  96</td>
+      <td> 20110428</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 10</td>
+      <td> 100</td>
+      <td> 20101210</td>
+      <td> routine</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[3]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFbusiness_ScoreLegend</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFBusinesses/ScoreLegend.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFbusiness_ScoreLegend</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[3]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Minimum_Score</th>
+      <th>Maximum_Score</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td>  0</td>
+      <td>  70</td>
+      <td>              Poor</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 71</td>
+      <td>  85</td>
+      <td> Needs Improvement</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 86</td>
+      <td>  90</td>
+      <td>          Adequate</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 91</td>
+      <td> 100</td>
+      <td>              Good</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[4]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFbusiness_violations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFBusinesses/violations.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFbusiness_violations</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[4]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>date</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td> 20121114</td>
+      <td> Unclean or degraded floors walls or ceilings  ...</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 10</td>
+      <td> 20120403</td>
+      <td> Unclean or degraded floors walls or ceilings  ...</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 10</td>
+      <td> 20110428</td>
+      <td> Inadequate and inaccessible handwashing facili...</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 12</td>
+      <td> 20120420</td>
+      <td> Food safety certificate or food handler card n...</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 17</td>
+      <td> 20120823</td>
+      <td> Inadequately cleaned or sanitized food contact...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[5]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFfood_businesses_plus</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFFoodProgram_Complete_Data/businesses_plus.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFfood_businesses_plus</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postal_code</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>phone_no</th>
+      <th>TaxCode</th>
+      <th>business_certificate</th>
+      <th>application_date</th>
+      <th>owner_name</th>
+      <th>owner_address</th>
+      <th>owner_city</th>
+      <th>owner_state</th>
+      <th>owner_zip</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td>                   TIRAMISU KITCHEN</td>
+      <td>                 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>                  Tiramisu LLC</td>
+      <td>                 33 Belden St</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 12</td>
+      <td>                              KIKKA</td>
+      <td>          250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td> 7/12/2002 0:00:00</td>
+      <td>               KIKKA ITO, INC.</td>
+      <td>          431 South Isis Ave.</td>
+      <td>     Inglewood</td>
+      <td> CA</td>
+      <td> 90301</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 17</td>
+      <td>               GEORGE'S COFFEE SHOP</td>
+      <td>             2200 OAKDALE AVE </td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94124</td>
+      <td> 37.741086</td>
+      <td>-122.401737</td>
+      <td> (141) 555-5314</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>  4/5/1975 0:00:00</td>
+      <td>   LIEUW, VICTOR & CHRISTINA C</td>
+      <td>          648 MACARTHUR DRIVE</td>
+      <td>     DALY CITY</td>
+      <td> CA</td>
+      <td> 94015</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 19</td>
+      <td>              NRGIZE LIFESTYLE CAFE</td>
+      <td>  1200 VAN NESS AVE, 3RD FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+      <td> 37.786848</td>
+      <td>-122.421547</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>           24 Hour Fitness Inc</td>
+      <td> 1200 Van Ness Ave, 3rd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 24</td>
+      <td> OMNI S.F. HOTEL - 2ND FLOOR PANTRY</td>
+      <td> 500 CALIFORNIA ST, 2ND  FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.792888</td>
+      <td>-122.403135</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td> OMNI San Francisco Hotel Corp</td>
+      <td> 500 California St, 2nd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[6]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFfood_inspections_plus</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFFoodProgram_Complete_Data/inspections_plus.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFfood_businesses_plus</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postal_code</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>phone_no</th>
+      <th>TaxCode</th>
+      <th>business_certificate</th>
+      <th>application_date</th>
+      <th>owner_name</th>
+      <th>owner_address</th>
+      <th>owner_city</th>
+      <th>owner_state</th>
+      <th>owner_zip</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td>                   TIRAMISU KITCHEN</td>
+      <td>                 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>                  Tiramisu LLC</td>
+      <td>                 33 Belden St</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 12</td>
+      <td>                              KIKKA</td>
+      <td>          250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td> 7/12/2002 0:00:00</td>
+      <td>               KIKKA ITO, INC.</td>
+      <td>          431 South Isis Ave.</td>
+      <td>     Inglewood</td>
+      <td> CA</td>
+      <td> 90301</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 17</td>
+      <td>               GEORGE'S COFFEE SHOP</td>
+      <td>             2200 OAKDALE AVE </td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94124</td>
+      <td> 37.741086</td>
+      <td>-122.401737</td>
+      <td> (141) 555-5314</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>  4/5/1975 0:00:00</td>
+      <td>   LIEUW, VICTOR & CHRISTINA C</td>
+      <td>          648 MACARTHUR DRIVE</td>
+      <td>     DALY CITY</td>
+      <td> CA</td>
+      <td> 94015</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 19</td>
+      <td>              NRGIZE LIFESTYLE CAFE</td>
+      <td>  1200 VAN NESS AVE, 3RD FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+      <td> 37.786848</td>
+      <td>-122.421547</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>           24 Hour Fitness Inc</td>
+      <td> 1200 Van Ness Ave, 3rd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 24</td>
+      <td> OMNI S.F. HOTEL - 2ND FLOOR PANTRY</td>
+      <td> 500 CALIFORNIA ST, 2ND  FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.792888</td>
+      <td>-122.403135</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td> OMNI San Francisco Hotel Corp</td>
+      <td> 500 California St, 2nd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[7]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFfood_violations_plus</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/SFFoodProgram_Complete_Data/violations_plus.csv&quot;</span><span class="p">)</span>
+
+<span class="n">SFfood_businesses_plus</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[7]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postal_code</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>phone_no</th>
+      <th>TaxCode</th>
+      <th>business_certificate</th>
+      <th>application_date</th>
+      <th>owner_name</th>
+      <th>owner_address</th>
+      <th>owner_city</th>
+      <th>owner_state</th>
+      <th>owner_zip</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td>                   TIRAMISU KITCHEN</td>
+      <td>                 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>                  Tiramisu LLC</td>
+      <td>                 33 Belden St</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 12</td>
+      <td>                              KIKKA</td>
+      <td>          250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td> 7/12/2002 0:00:00</td>
+      <td>               KIKKA ITO, INC.</td>
+      <td>          431 South Isis Ave.</td>
+      <td>     Inglewood</td>
+      <td> CA</td>
+      <td> 90301</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 17</td>
+      <td>               GEORGE'S COFFEE SHOP</td>
+      <td>             2200 OAKDALE AVE </td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94124</td>
+      <td> 37.741086</td>
+      <td>-122.401737</td>
+      <td> (141) 555-5314</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>  4/5/1975 0:00:00</td>
+      <td>   LIEUW, VICTOR & CHRISTINA C</td>
+      <td>          648 MACARTHUR DRIVE</td>
+      <td>     DALY CITY</td>
+      <td> CA</td>
+      <td> 94015</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 19</td>
+      <td>              NRGIZE LIFESTYLE CAFE</td>
+      <td>  1200 VAN NESS AVE, 3RD FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+      <td> 37.786848</td>
+      <td>-122.421547</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td>           24 Hour Fitness Inc</td>
+      <td> 1200 Van Ness Ave, 3rd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94109</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 24</td>
+      <td> OMNI S.F. HOTEL - 2ND FLOOR PANTRY</td>
+      <td> 500 CALIFORNIA ST, 2ND  FLOOR</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.792888</td>
+      <td>-122.403135</td>
+      <td>            NaN</td>
+      <td> H24</td>
+      <td>NaN</td>
+      <td>               NaN</td>
+      <td> OMNI San Francisco Hotel Corp</td>
+      <td> 500 California St, 2nd Floor</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[8]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="c"># A simple way to find out how many rows are present and what columbs consist of numerical data , we can use describe()</span>
+
+<span class="n">SFfood_businesses_plus</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[8]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>business_certificate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>count</strong></td>
+      <td>  6352.000000</td>
+      <td> 5495.000000</td>
+      <td> 5495.000000</td>
+      <td>    1131.000000</td>
+    </tr>
+    <tr>
+      <td><strong>mean</strong></td>
+      <td> 32944.535894</td>
+      <td>   37.525775</td>
+      <td> -121.622553</td>
+      <td>  449157.537577</td>
+    </tr>
+    <tr>
+      <td><strong>std</strong></td>
+      <td> 28884.685537</td>
+      <td>    3.047733</td>
+      <td>    9.877572</td>
+      <td>  159777.164993</td>
+    </tr>
+    <tr>
+      <td><strong>min</strong></td>
+      <td>    10.000000</td>
+      <td>    0.000000</td>
+      <td> -122.510896</td>
+      <td>    4965.000000</td>
+    </tr>
+    <tr>
+      <td><strong>25%</strong></td>
+      <td>  4138.500000</td>
+      <td>   37.760272</td>
+      <td> -122.435457</td>
+      <td>  446211.000000</td>
+    </tr>
+    <tr>
+      <td><strong>50%</strong></td>
+      <td> 28534.500000</td>
+      <td>   37.780568</td>
+      <td> -122.418129</td>
+      <td>  465714.000000</td>
+    </tr>
+    <tr>
+      <td><strong>75%</strong></td>
+      <td> 65468.500000</td>
+      <td>   37.789875</td>
+      <td> -122.405568</td>
+      <td>  471461.000000</td>
+    </tr>
+    <tr>
+      <td><strong>max</strong></td>
+      <td> 74591.000000</td>
+      <td>   37.875937</td>
+      <td>    0.000000</td>
+      <td> 4222215.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[9]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">SFfood_businesses_plus</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c">#NaN values are ignored</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[9]:</div>
+
+
+<div class="output_text output_subarea output_pyout">
+<pre>
+business_id             6352
+name                    6352
+address                 6350
+city                    6352
+state                   6352
+postal_code             6121
+latitude                5495
+longitude               5495
+phone_no                1461
+TaxCode                 6352
+business_certificate    1131
+application_date        4481
+owner_name              6342
+owner_address           6331
+owner_city              6263
+owner_state             6262
+owner_zip               6244
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="some-conclutions">Some conclutions</h1>
+<ul>
+<li><strong>Some of data sheets are quite similar to other data sheets.</strong></li>
+<li><strong>NaN signifies null values.</strong></li>
+<li><strong>When we look in to these data sets, we find that only some features of data are useful while others are supposed to be filtered.</strong></li>
+<li><strong>We need more analysis about how many columns a particular data sheet consist.Then we will try to join the data sheets.</strong></li>
+<li><strong>Data fields that matters are business_id,name,address,latitude,longitude,scores,date which are present in businesses and inspection data sheets. Remaining data fields are either repeated or not required for data problems.</strong></li>
+<li><strong>Almost every data set consist of business_id as a primary key, we could utilize it for joining data sheets.</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="joining-data">Joining data</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[10]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="err">&#39;&#39;&#39;</span><span class="n">pandas</span> <span class="n">data</span> <span class="n">frames</span> <span class="n">uses</span> <span class="n">left</span> <span class="n">outer</span> <span class="n">join</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">all</span> <span class="n">records</span> <span class="n">of</span> <span class="n">SFbusiness_business</span> <span class="n">will</span> <span class="n">be</span> <span class="n">preset</span>
+   <span class="n">even</span> <span class="n">though</span> <span class="n">corresponding</span> <span class="n">rows</span> <span class="n">are</span> <span class="n">not</span> <span class="n">present</span> <span class="n">on</span> <span class="n">SFbusiness_inspection</span> <span class="err">&#39;&#39;&#39;</span>
+
+<span class="n">print</span> <span class="n">SFbusiness_business</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="n">print</span> <span class="n">SFbusiness_inspections</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="n">main_table</span> <span class="o">=</span> <span class="n">SFbusiness_business</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">SFbusiness_inspections</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="err">&#39;</span><span class="n">business_id</span><span class="o">&#39;</span> <span class="p">)</span>
+
+<span class="n">print</span> <span class="n">main_table</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Index([business_id, name, address, city, state, postal_code, latitude, longitude, phone_number], dtype=object)
+Index([business_id, Score, date, type], dtype=object)
+Index([business_id, name, address, city, state, postal_code, latitude, longitude, phone_number, Score, date, type], dtype=object)
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[11]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="c"># let&#39;s just look at few rows of our main_table</span>
+
+<span class="n">main_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[11]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>business_id</th>
+      <th>name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>postal_code</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>phone_number</th>
+      <th>Score</th>
+      <th>date</th>
+      <th>type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 10</td>
+      <td> TIRAMISU KITCHEN</td>
+      <td> 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>NaN</td>
+      <td>  98</td>
+      <td> 20121114</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 10</td>
+      <td> TIRAMISU KITCHEN</td>
+      <td> 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>NaN</td>
+      <td>  98</td>
+      <td> 20120403</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 10</td>
+      <td> TIRAMISU KITCHEN</td>
+      <td> 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>NaN</td>
+      <td> 100</td>
+      <td> 20110928</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 10</td>
+      <td> TIRAMISU KITCHEN</td>
+      <td> 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>NaN</td>
+      <td>  96</td>
+      <td> 20110428</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 10</td>
+      <td> TIRAMISU KITCHEN</td>
+      <td> 033 BELDEN PL</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94104</td>
+      <td> 37.791116</td>
+      <td>-122.403816</td>
+      <td>NaN</td>
+      <td> 100</td>
+      <td> 20101210</td>
+      <td> routine</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="data-pre-processing">Data Pre-Processing</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
