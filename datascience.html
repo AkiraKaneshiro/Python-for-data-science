@@ -1704,7 +1704,7 @@ div#notebook {
 </ul>
 </li>
 <li><strong>Data Pre-Processing</strong><ul>
-<li>Dealing with redundancies</li>
+<li>Extracting useful features</li>
 <li>Dealing with missing values</li>
 </ul>
 </li>
@@ -1768,7 +1768,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="aquiring-data">Aquiring data</h1>
-<p>For this tutorial we will try to use publicly available data sets. San Francisco department of public health maintains <a href="http://www.sfdph.org/dph/EH/Food/score/default.asp">data sets</a> about restaurants safety scores. Since data is publicly available, aquiring them is easy. If data is available in a website which do not have any API support, we can use web scraping techniques. Since there are lot of tutorials on how to get data, I am skipping that part. For convinience, I added all the requisite data sets in to the <a href="git repo" > repository </a>. I found Jay-Oh-eN&#39;s <a href="https://github.com/Jay-Oh-eN/happy-healthy-hungry">repository</a> quite helpful for reference.</p>
+<p>For this tutorial we will try to use publicly available data sets. For initial illustrations like observing and joining data sets, we will use San Francisco restaurant data. San Francisco department of public health maintains <a href="http://www.sfdph.org/dph/EH/Food/score/default.asp">data sets</a> about restaurants safety scores. Since data is publicly available, aquiring them is easy. If data is available in a website which do not have any API support, we can use web scraping techniques. Since there are lot of tutorials on how to get data, I am skipping that part. For convinience, I added all the requisite data sets in to the <a href="git repo" > repository </a>. I found Jay-Oh-eN&#39;s <a href="https://github.com/Jay-Oh-eN/happy-healthy-hungry">repository</a> quite helpful for reference.</p>
 </div>
 </div>
 </div>
@@ -2835,7 +2835,7 @@ In&nbsp;[11]:
     <div class="input_area">
 <div class="highlight"><pre><span class="c"># let&#39;s just look at few rows of our main_table</span>
 
-<span class="n">main_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">main_table</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2873,14 +2873,14 @@ In&nbsp;[11]:
     <tr>
       <td><strong>0</strong></td>
       <td> 10</td>
-      <td> TIRAMISU KITCHEN</td>
-      <td> 033 BELDEN PL</td>
+      <td>     TIRAMISU KITCHEN</td>
+      <td>        033 BELDEN PL</td>
       <td> San Francisco</td>
       <td> CA</td>
       <td> 94104</td>
       <td> 37.791116</td>
       <td>-122.403816</td>
-      <td>NaN</td>
+      <td>         NaN</td>
       <td>  98</td>
       <td> 20121114</td>
       <td> routine</td>
@@ -2888,14 +2888,14 @@ In&nbsp;[11]:
     <tr>
       <td><strong>1</strong></td>
       <td> 10</td>
-      <td> TIRAMISU KITCHEN</td>
-      <td> 033 BELDEN PL</td>
+      <td>     TIRAMISU KITCHEN</td>
+      <td>        033 BELDEN PL</td>
       <td> San Francisco</td>
       <td> CA</td>
       <td> 94104</td>
       <td> 37.791116</td>
       <td>-122.403816</td>
-      <td>NaN</td>
+      <td>         NaN</td>
       <td>  98</td>
       <td> 20120403</td>
       <td> routine</td>
@@ -2903,14 +2903,14 @@ In&nbsp;[11]:
     <tr>
       <td><strong>2</strong></td>
       <td> 10</td>
-      <td> TIRAMISU KITCHEN</td>
-      <td> 033 BELDEN PL</td>
+      <td>     TIRAMISU KITCHEN</td>
+      <td>        033 BELDEN PL</td>
       <td> San Francisco</td>
       <td> CA</td>
       <td> 94104</td>
       <td> 37.791116</td>
       <td>-122.403816</td>
-      <td>NaN</td>
+      <td>         NaN</td>
       <td> 100</td>
       <td> 20110928</td>
       <td> routine</td>
@@ -2918,14 +2918,14 @@ In&nbsp;[11]:
     <tr>
       <td><strong>3</strong></td>
       <td> 10</td>
-      <td> TIRAMISU KITCHEN</td>
-      <td> 033 BELDEN PL</td>
+      <td>     TIRAMISU KITCHEN</td>
+      <td>        033 BELDEN PL</td>
       <td> San Francisco</td>
       <td> CA</td>
       <td> 94104</td>
       <td> 37.791116</td>
       <td>-122.403816</td>
-      <td>NaN</td>
+      <td>         NaN</td>
       <td>  96</td>
       <td> 20110428</td>
       <td> routine</td>
@@ -2933,16 +2933,91 @@ In&nbsp;[11]:
     <tr>
       <td><strong>4</strong></td>
       <td> 10</td>
-      <td> TIRAMISU KITCHEN</td>
-      <td> 033 BELDEN PL</td>
+      <td>     TIRAMISU KITCHEN</td>
+      <td>        033 BELDEN PL</td>
       <td> San Francisco</td>
       <td> CA</td>
       <td> 94104</td>
       <td> 37.791116</td>
       <td>-122.403816</td>
-      <td>NaN</td>
+      <td>         NaN</td>
       <td> 100</td>
       <td> 20101210</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td> 12</td>
+      <td>                KIKKA</td>
+      <td> 250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>         NaN</td>
+      <td> 100</td>
+      <td> 20121120</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td> 12</td>
+      <td>                KIKKA</td>
+      <td> 250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>         NaN</td>
+      <td>  98</td>
+      <td> 20120420</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>7</strong></td>
+      <td> 12</td>
+      <td>                KIKKA</td>
+      <td> 250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>         NaN</td>
+      <td> 100</td>
+      <td> 20111018</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>8</strong></td>
+      <td> 12</td>
+      <td>                KIKKA</td>
+      <td> 250 EMBARCADERO  7/F</td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94105</td>
+      <td> 37.788613</td>
+      <td>-122.393894</td>
+      <td>         NaN</td>
+      <td> 100</td>
+      <td> 20110401</td>
+      <td> routine</td>
+    </tr>
+    <tr>
+      <td><strong>9</strong></td>
+      <td> 17</td>
+      <td> GEORGE'S COFFEE SHOP</td>
+      <td>    2200 OAKDALE AVE </td>
+      <td> San Francisco</td>
+      <td> CA</td>
+      <td> 94124</td>
+      <td> 37.741086</td>
+      <td>-122.401737</td>
+      <td> 14155531470</td>
+      <td> 100</td>
+      <td> 20120823</td>
       <td> routine</td>
     </tr>
   </tbody>
@@ -2965,20 +3040,667 @@ In&nbsp;[11]:
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Data is often found in a difficult to use manner. To imporve the accuracy, pre-processing is essential. We are using Biostatistics data from VANDERBILT UNIVERSITY for data pre-processing. You can find the data set <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets?CGISESSID=10713f6d891653ddcbb7ddbdd9cffb79">here</a>. For convinience I included it in the git repository.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="extracting-useful-features">Extracting useful features</h1>
+<p> Let&#39;s assume that we wanted to know how death of patient is dependent on age,sex,race,income. We are not interested in remaining features of the data set. Therefore we will make a pandas frame which serves our purpose.</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[]:
+In&nbsp;[12]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre>
+<div class="highlight"><pre><span class="n">data1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;data/support2.csv&quot;</span><span class="p">)</span>
+<span class="c">#Creating pandas data frame which that holds only few features about data such as age,sex,race,income and death(dead=1 | alive=0)</span>
+<span class="n">med</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="err">&#39;</span><span class="n">age</span><span class="o">&#39;</span><span class="p">:</span><span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">age</span><span class="o">&#39;</span><span class="p">],</span>
+                   <span class="err">&#39;</span><span class="n">death</span><span class="o">&#39;</span><span class="p">:</span><span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">death</span><span class="o">&#39;</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">sex</span><span class="o">&#39;</span><span class="p">:</span><span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">sex</span><span class="o">&#39;</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">race</span><span class="o">&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">race</span><span class="o">&#39;</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">],</span>
+                     <span class="p">})</span>
+<span class="n">med</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[12]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>death</th>
+      <th>income</th>
+      <th>race</th>
+      <th>sex</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td> 62.84998</td>
+      <td> 0</td>
+      <td>   $11-$25k</td>
+      <td>    other</td>
+      <td>   male</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 60.33899</td>
+      <td> 1</td>
+      <td>   $11-$25k</td>
+      <td>    white</td>
+      <td> female</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 52.74698</td>
+      <td> 1</td>
+      <td> under $11k</td>
+      <td>    white</td>
+      <td> female</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td> 42.38498</td>
+      <td> 1</td>
+      <td> under $11k</td>
+      <td>    white</td>
+      <td> female</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 79.88495</td>
+      <td> 0</td>
+      <td>        NaN</td>
+      <td>    white</td>
+      <td> female</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td> 93.01599</td>
+      <td> 1</td>
+      <td>        NaN</td>
+      <td>    white</td>
+      <td>   male</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td> 62.37097</td>
+      <td> 1</td>
+      <td>   $25-$50k</td>
+      <td>    white</td>
+      <td>   male</td>
+    </tr>
+    <tr>
+      <td><strong>7</strong></td>
+      <td> 86.83899</td>
+      <td> 1</td>
+      <td>        NaN</td>
+      <td>    white</td>
+      <td>   male</td>
+    </tr>
+    <tr>
+      <td><strong>8</strong></td>
+      <td> 85.65594</td>
+      <td> 1</td>
+      <td>        NaN</td>
+      <td>    black</td>
+      <td>   male</td>
+    </tr>
+    <tr>
+      <td><strong>9</strong></td>
+      <td> 42.25897</td>
+      <td> 1</td>
+      <td>   $25-$50k</td>
+      <td> hispanic</td>
+      <td> female</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="dealing-with-missing-values">Dealing with missing values</h1>
+<p>Most common pre-processing step is to deal with missing values. Pandas data frames automaticlly takes null values to be NaN. We can ignore those values or replace with &#39;0&#39;. Filling null values with appropriate central tendencies such as median, mean, mode is considered as a better practice. For this purpose, Series data structure could be useful. A Series is a one-dimensional array-like object. </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[13]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">from</span> <span class="n">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+<span class="n">seriesresult</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="n">med</span><span class="p">[</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">])</span>
+<span class="c">#replacing $11-$25k with 18</span>
+<span class="n">seriesresult</span><span class="o">=</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="err">&#39;</span><span class="o">$</span><span class="mi">11</span><span class="o">-$</span><span class="mi">25</span><span class="n">k</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="err">&#39;</span><span class="mi">18</span><span class="o">&#39;</span><span class="p">)</span>
+<span class="c">#replacing under $11 to 5.5</span>
+<span class="n">seriesresult</span><span class="o">=</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="err">&#39;</span><span class="n">under</span> <span class="o">$</span><span class="mi">11</span><span class="n">k</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="err">&#39;</span><span class="mf">5.5</span><span class="o">&#39;</span><span class="p">)</span>
+<span class="c">#replacing $25k-50k with 37.5</span>
+<span class="n">seriesresult</span><span class="o">=</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="err">&#39;</span><span class="o">$</span><span class="mi">25</span><span class="o">-$</span><span class="mi">50</span><span class="n">k</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="err">&#39;</span><span class="mf">37.5</span><span class="o">&#39;</span><span class="p">)</span>
+<span class="c">#replacing &gt;$50k with 75</span>
+<span class="n">seriesresult</span><span class="o">=</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="err">&#39;</span><span class="o">&gt;$</span><span class="mi">50</span><span class="n">k</span><span class="o">&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="err">&#39;</span><span class="mi">75</span><span class="o">&#39;</span><span class="p">)</span>
+<span class="n">print</span> <span class="n">seriesresult</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+0       18
+1       18
+2      5.5
+3      5.5
+4      NaN
+5      NaN
+6     37.5
+7      NaN
+8      NaN
+9     37.5
+10     NaN
+11     NaN
+12      18
+13      18
+14     NaN
+...
+9090      18
+9091     5.5
+9092     NaN
+9093    37.5
+9094     NaN
+9095     NaN
+9096      18
+9097      18
+9098     NaN
+9099     5.5
+9100     NaN
+9101     NaN
+9102     NaN
+9103     NaN
+9104      18
+Length: 9105
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[14]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="c"># Checking for null values</span>
+<span class="n">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">CSV Value isnull: &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span>
+<span class="c"># Ignoring null values</span>
+<span class="n">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">CSV Value dropna: &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="c"># Replacing with &#39;0&#39;</span>
+<span class="n">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">CSV Value fillna(0): &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+CSV Value isnull: 0     False
+1     False
+2     False
+3     False
+4      True
+5      True
+6     False
+7      True
+8      True
+9     False
+10     True
+11     True
+12    False
+13    False
+14     True
+...
+9090    False
+9091    False
+9092     True
+9093    False
+9094     True
+9095     True
+9096    False
+9097    False
+9098     True
+9099    False
+9100     True
+9101     True
+9102     True
+9103     True
+9104    False
+Length: 9105
+
+CSV Value dropna: 0       18
+1       18
+2      5.5
+3      5.5
+6     37.5
+9     37.5
+12      18
+13      18
+15      75
+17    37.5
+18     5.5
+19      18
+20      75
+22    37.5
+23    37.5
+...
+9079    37.5
+9080     5.5
+9081    37.5
+9083     5.5
+9085      75
+9086      18
+9087      18
+9088      18
+9090      18
+9091     5.5
+9093    37.5
+9096      18
+9097      18
+9099     5.5
+9104      18
+Length: 6123
+
+CSV Value fillna(0): 0       18
+1       18
+2      5.5
+3      5.5
+4        0
+5        0
+6     37.5
+7        0
+8        0
+9     37.5
+10       0
+11       0
+12      18
+13      18
+14       0
+...
+9090      18
+9091     5.5
+9092       0
+9093    37.5
+9094       0
+9095       0
+9096      18
+9097      18
+9098       0
+9099     5.5
+9100       0
+9101       0
+9102       0
+9103       0
+9104      18
+Length: 9105
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since, we are dealing with ordinal data, we could replace it with median.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[15]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">l</span><span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">median: &quot;</span> <span class="o">+</span> <span class="n">l</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">float</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="n">print</span> <span class="n">k</span>
+<span class="c">#replacing with median</span>
+<span class="n">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">CSV Value fillna(0): &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">seriesresult</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+median: 18.0
+18.0
+
+CSV Value fillna(0): 0       18
+1       18
+2      5.5
+3      5.5
+4       18
+5       18
+6     37.5
+7       18
+8       18
+9     37.5
+10      18
+11      18
+12      18
+13      18
+14      18
+...
+9090      18
+9091     5.5
+9092      18
+9093    37.5
+9094      18
+9095      18
+9096      18
+9097      18
+9098      18
+9099     5.5
+9100      18
+9101      18
+9102      18
+9103      18
+9104      18
+Length: 9105
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are better ways to replace missing values. One of the ways is to use linear regression. We will try to fit the model with a linear equation. There is a column called charges mentioning mediacal bills. Let&#39;s see if charges and income have any trend togather.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[16]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">ourfocus</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">:</span><span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">],</span>
+                         <span class="err">&#39;</span><span class="n">charges</span><span class="o">&#39;</span><span class="p">:</span><span class="n">data1</span><span class="p">[</span><span class="err">&#39;</span><span class="n">charges</span><span class="o">&#39;</span><span class="p">]})</span>
+<span class="n">ourfocus</span><span class="p">[</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">seriesresult</span> <span class="c"># putting result of seriesresult in place of ourfocus income column</span>
+<span class="n">ourfocus</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[16]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>charges</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>0</strong></td>
+      <td>  9715</td>
+      <td>   18</td>
+    </tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td> 34496</td>
+      <td>   18</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td> 41094</td>
+      <td>  5.5</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>  3075</td>
+      <td>  5.5</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td> 50127</td>
+      <td>  NaN</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td>  6884</td>
+      <td>  NaN</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td> 30460</td>
+      <td> 37.5</td>
+    </tr>
+    <tr>
+      <td><strong>7</strong></td>
+      <td> 30460</td>
+      <td>  NaN</td>
+    </tr>
+    <tr>
+      <td><strong>8</strong></td>
+      <td>   NaN</td>
+      <td>  NaN</td>
+    </tr>
+    <tr>
+      <td><strong>9</strong></td>
+      <td>  9914</td>
+      <td> 37.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We should remove all the missing values here since we are trying to see co realation between charge and income. </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[17]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="k">import</span> <span class="n">numpy</span> <span class="n">as</span> <span class="n">np</span>
+<span class="n">ourfocus</span> <span class="o">=</span> <span class="n">ourfocus</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="nb">new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="err">&#39;</span><span class="n">charges</span><span class="o">&#39;</span><span class="p">:</span><span class="n">ourfocus</span><span class="p">[</span><span class="err">&#39;</span><span class="n">charges</span><span class="o">&#39;</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">:</span><span class="n">ourfocus</span><span class="p">[</span><span class="err">&#39;</span><span class="n">income</span><span class="o">&#39;</span><span class="p">]})</span>
+<span class="c">#converting all the values of the data frame in to floats</span>
+<span class="nb">new</span><span class="o">=</span><span class="nb">new</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">float</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c">#print ourfocus[&#39;charges&#39;].mean</span>
+<span class="c">#print ourfocus[&#39;income&#39;].mean</span>
+<span class="n">print</span> <span class="nb">new</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">new</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+   charges  income
+0     9715    18.0
+1    34496    18.0
+2    41094     5.5
+3     3075     5.5
+4    30460    37.5
+5     9914    37.5
+6     4353    18.0
+7    19783    18.0
+8    10758    75.0
+9   283303    37.5
+
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">
+    Out[17]:</div>
+
+<div class="output_html rendered_html output_subarea output_pyout">
+<div style="max-height:1000px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>charges</th>
+      <th>income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>charges</strong></td>
+      <td> 1.0000</td>
+      <td> 0.1237</td>
+    </tr>
+    <tr>
+      <td><strong>income</strong></td>
+      <td> 0.1237</td>
+      <td> 1.0000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>0.1237 means very sligt corelation exits between income and charges. So, now we know from above that we can&#39;t use charges to fill the missing values of income. </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
 </div>
     </div>
   </div>
